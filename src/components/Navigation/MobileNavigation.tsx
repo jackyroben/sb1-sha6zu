@@ -8,7 +8,7 @@ import {
   PaintBrushIcon,
   EllipsisHorizontalCircleIcon,
   XMarkIcon,
-  ArrowDownTrayIcon
+  ArrowDownTrayIcon,
 } from '@heroicons/react/24/outline';
 import { SectionReorder } from '../Editor/SectionReorder';
 import { TemplateSwitcher } from '../Editor/TemplateSwitcher';
@@ -27,7 +27,7 @@ interface MobileNavigationProps {
 export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   sections,
   currentStep,
-  onStepChange
+  onStepChange,
 }) => {
   const { t } = useTranslation();
   const { showPreview, setShowPreview } = useCVStore();
@@ -43,7 +43,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       onClick: () => {
         setShowPreview(!showPreview);
         setIsFabMenuOpen(false);
-      }
+      },
     },
     {
       id: 'template',
@@ -52,7 +52,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       onClick: () => {
         setIsTemplateOpen(true);
         setIsFabMenuOpen(false);
-      }
+      },
     },
     {
       id: 'reorder',
@@ -61,7 +61,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       onClick: () => {
         setIsReorderOpen(true);
         setIsFabMenuOpen(false);
-      }
+      },
     },
     {
       id: 'download',
@@ -70,37 +70,56 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       component: PDFDownloadButton,
       onClick: () => {
         setIsFabMenuOpen(false);
-      }
-    }
+      },
+    },
   ];
 
   return (
     <>
       {/* Fixed Bottom Navigation */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
-        <div className="grid grid-cols-5 h-16">
+      <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+        <div className="grid grid-cols-5 h-20">
           {sections.map((section, index) => {
             const Icon = section.icon;
+            const isActive = currentStep === index;
             return (
               <button
                 key={section.id}
                 onClick={() => onStepChange(index)}
-                className={`flex flex-col items-center justify-center space-y-1 ${
-                  currentStep === index
-                    ? 'text-indigo-600'
-                    : 'text-gray-600'
-                }`}
+                className="flex flex-col items-center justify-center space-y-1 px-1"
               >
-                <Icon className="h-6 w-6" />
-                <span className="text-xs truncate px-1">{section.title}</span>
+                <div
+                  className={`p-2 rounded-lg transition-colors ${
+                    isActive
+                      ? 'bg-blue-50'
+                      : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <Icon
+                    className={`h-6 w-6 ${
+                      isActive
+                        ? 'text-blue-600'
+                        : 'text-gray-600'
+                    }`}
+                  />
+                </div>
+                <span
+                  className={`text-xs font-medium truncate ${
+                    isActive
+                      ? 'text-blue-600'
+                      : 'text-gray-600'
+                  }`}
+                >
+                  {section.title}
+                </span>
               </button>
             );
           })}
         </div>
-      </div>
+      </nav>
 
       {/* FAB and Menu */}
-      <div className="fixed right-4 bottom-20 z-50">
+      <div className="fixed right-4 bottom-24 z-50">
         <AnimatePresence>
           {isFabMenuOpen && (
             <motion.div
@@ -119,9 +138,9 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               initial={{ opacity: 0, scale: 0.8, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 20 }}
-              className="absolute bottom-16 right-0 bg-white rounded-lg shadow-lg overflow-hidden min-w-[160px]"
+              className="absolute bottom-16 right-0 bg-white rounded-2xl shadow-xl overflow-hidden min-w-[180px]"
             >
-              <div className="py-1">
+              <div className="py-2">
                 {fabActions.map((action) => {
                   const Icon = action.icon;
                   if (action.component) {
@@ -136,9 +155,9 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                     <button
                       key={action.id}
                       onClick={action.onClick}
-                      className="flex items-center w-full px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50"
+                      className="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-gray-50"
                     >
-                      <Icon className="h-4 w-4 mr-3" />
+                      <Icon className="h-5 w-5 mr-3" />
                       <span>{action.label}</span>
                     </button>
                   );
@@ -150,16 +169,16 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
 
         <button
           onClick={() => setIsFabMenuOpen(!isFabMenuOpen)}
-          className={`p-3 rounded-full shadow-lg transition-colors ${
+          className={`p-4 rounded-full shadow-lg transition-colors ${
             isFabMenuOpen 
               ? 'bg-gray-800 text-white'
-              : 'bg-indigo-600 text-white hover:bg-indigo-700'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
           }`}
         >
           {isFabMenuOpen ? (
-            <XMarkIcon className="h-5 w-5" />
+            <XMarkIcon className="h-6 w-6" />
           ) : (
-            <EllipsisHorizontalCircleIcon className="h-5 w-5" />
+            <EllipsisHorizontalCircleIcon className="h-6 w-6" />
           )}
         </button>
       </div>
@@ -178,15 +197,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              className="fixed inset-x-0 bottom-0 bg-white rounded-t-xl p-4 max-h-[80vh] overflow-y-auto"
+              className="fixed inset-x-0 bottom-0 bg-white rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto"
             >
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">{t('arrangeSections')}</h2>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold">{t('arrangeSections')}</h2>
                 <button
                   onClick={() => setIsReorderOpen(false)}
-                  className="text-gray-500"
+                  className="p-2 hover:bg-gray-100 rounded-full"
                 >
-                  <XMarkIcon className="h-5 w-5" />
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
               </div>
               <SectionReorder onClose={() => setIsReorderOpen(false)} />
@@ -209,15 +228,15 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              className="fixed inset-x-0 bottom-0 bg-white rounded-t-xl p-4 max-h-[80vh] overflow-y-auto"
+              className="fixed inset-x-0 bottom-0 bg-white rounded-t-2xl p-6 max-h-[80vh] overflow-y-auto"
             >
-              <div className="flex justify-between items-center mb-4">
-                <h2 className="text-lg font-semibold">{t('chooseTemplate')}</h2>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-semibold">{t('chooseTemplate')}</h2>
                 <button
                   onClick={() => setIsTemplateOpen(false)}
-                  className="text-gray-500"
+                  className="p-2 hover:bg-gray-100 rounded-full"
                 >
-                  <XMarkIcon className="h-5 w-5" />
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
               </div>
               <TemplateSwitcher onClose={() => setIsTemplateOpen(false)} />

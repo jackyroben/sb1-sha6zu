@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { useCVStore } from '../../store/cvStore';
 import { FormField } from './FormField';
+import { CollapsibleSection } from '../Layout/CollapsibleSection';
 import {
   UserIcon,
   EnvelopeIcon,
@@ -11,6 +12,8 @@ import {
   BriefcaseIcon,
   DocumentTextIcon,
   PhotoIcon,
+  IdentificationIcon,
+  ChatBubbleBottomCenterTextIcon,
 } from '@heroicons/react/24/outline';
 
 export const PersonalInfoForm: React.FC = () => {
@@ -41,10 +44,42 @@ export const PersonalInfoForm: React.FC = () => {
   });
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6 pb-24 md:pb-0">
+      {/* Photo Upload */}
+      <div
+        {...getRootProps()}
+        className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
+      >
+        <input {...getInputProps()} />
+        {personalInfo.photo ? (
+          <div className="space-y-4">
+            <div className="relative inline-block">
+              <img
+                src={personalInfo.photo}
+                alt="Profile"
+                className="h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
+              />
+              <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity flex items-center justify-center">
+                <PhotoIcon className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
+              </div>
+            </div>
+            <p className="text-sm text-gray-500">Tap to change photo</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div className="h-32 w-32 mx-auto rounded-full bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center">
+              <PhotoIcon className="h-12 w-12 text-gray-400" />
+            </div>
+            <div>
+              <p className="text-base text-gray-600">Add a profile photo</p>
+              <p className="text-sm text-gray-500 mt-1">PNG, JPG up to 10MB</p>
+            </div>
+          </div>
+        )}
+      </div>
+
       {/* Basic Information */}
-      <div className="space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Basic Information</h3>
+      <CollapsibleSection title="Basic Information" icon={IdentificationIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
             label={t('firstName')}
@@ -71,11 +106,10 @@ export const PersonalInfoForm: React.FC = () => {
             hint="Your current job title or professional role"
           />
         </div>
-      </div>
+      </CollapsibleSection>
 
       {/* Contact Information */}
-      <div className="space-y-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4">Contact Information</h3>
+      <CollapsibleSection title="Contact Information" icon={PhoneIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
             label={t('email')}
@@ -105,56 +139,27 @@ export const PersonalInfoForm: React.FC = () => {
             hint="City and country where you're based"
           />
         </div>
-      </div>
+      </CollapsibleSection>
 
-      {/* Summary */}
-      <FormField
-        label={t('summary')}
-        value={personalInfo.summary}
-        onChange={(value) => updatePersonalInfo({ summary: value })}
-        multiline
-        rows={4}
-        placeholder="Brief professional summary highlighting your key strengths and experience"
-        icon={DocumentTextIcon}
-        hint="Write a compelling summary of your professional background (recommended: 2-4 sentences)"
-      />
-
-      {/* Photo Upload */}
-      <div className="space-y-2">
-        <label className="block text-base font-medium text-gray-800">
-          {t('photo')}
-        </label>
-        <div
-          {...getRootProps()}
-          className="mt-2 flex flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 px-6 py-8 cursor-pointer hover:border-blue-500 transition-colors"
-        >
-          <input {...getInputProps()} />
-          {personalInfo.photo ? (
-            <div className="space-y-4 text-center">
-              <img
-                src={personalInfo.photo}
-                alt="Profile"
-                className="mx-auto h-32 w-32 rounded-full object-cover border-4 border-white shadow-lg"
-              />
-              <p className="text-sm text-gray-500">Tap to change photo</p>
-            </div>
-          ) : (
-            <div className="space-y-4 text-center">
-              <PhotoIcon className="mx-auto h-12 w-12 text-gray-400" />
-              <div>
-                <p className="text-base text-gray-600">Tap to upload profile photo</p>
-                <p className="text-sm text-gray-500 mt-1">PNG, JPG up to 10MB</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* Professional Summary */}
+      <CollapsibleSection title="Professional Summary" icon={ChatBubbleBottomCenterTextIcon}>
+        <FormField
+          label={t('summary')}
+          value={personalInfo.summary}
+          onChange={(value) => updatePersonalInfo({ summary: value })}
+          multiline
+          rows={4}
+          placeholder="Brief professional summary highlighting your key strengths and experience"
+          icon={DocumentTextIcon}
+          hint="Write a compelling summary of your professional background (recommended: 2-4 sentences)"
+        />
+      </CollapsibleSection>
 
       {/* Save Button */}
       <div className="fixed bottom-20 inset-x-0 p-4 bg-white border-t border-gray-200 md:hidden">
         <button
           type="button"
-          className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
         >
           Save & Continue
         </button>
