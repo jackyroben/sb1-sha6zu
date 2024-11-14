@@ -26,12 +26,12 @@ export const FormField: React.FC<FormFieldProps> = ({
   rows = 4,
   disabled = false,
 }) => {
-  const baseClasses = "w-full rounded-md border-gray-300 shadow-sm transition-colors focus:border-blue-500 focus:ring-blue-500 text-base";
+  const baseClasses = "w-full rounded-lg border-gray-300 shadow-sm transition-colors focus:border-blue-500 focus:ring-blue-500 text-base";
   const inputClasses = `${baseClasses} ${Icon ? 'pl-10' : ''}`;
   const iconClasses = "h-5 w-5 text-gray-400";
 
   return (
-    <div className="space-y-1.5">
+    <div className="space-y-2">
       <label className="block text-sm font-medium text-gray-700">
         {label}
       </label>
@@ -62,7 +62,7 @@ export const FormField: React.FC<FormFieldProps> = ({
         )}
       </div>
       {hint && (
-        <p className="text-xs text-gray-500">{hint}</p>
+        <p className="text-sm text-gray-500">{hint}</p>
       )}
     </div>
   );

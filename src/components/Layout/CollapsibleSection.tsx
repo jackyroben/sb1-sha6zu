@@ -24,15 +24,15 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   const [isOpen, setIsOpen] = React.useState(defaultOpen);
 
   return (
-    <div className={`bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden ${className}`}>
+    <div className={`bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 flex items-center justify-between bg-gray-50"
+        className="w-full px-4 py-3 flex items-center justify-between bg-gray-50"
       >
         <div className="flex items-center space-x-3">
           {Icon && <Icon className="h-5 w-5 text-gray-500" />}
           <div>
-            <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+            <h3 className="text-base font-medium text-gray-900">{title}</h3>
             {!isOpen && summary && (
               <p className="text-sm text-gray-500 mt-1">{summary}</p>
             )}
@@ -40,7 +40,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
         </div>
         <div className="flex items-center space-x-3">
           {itemCount > 0 && (
-            <span className="text-sm font-medium text-gray-600 bg-gray-100 px-2.5 py-0.5 rounded-full">
+            <span className="text-sm font-medium text-gray-600 bg-gray-100 px-2 py-0.5 rounded-full">
               {itemCount}
             </span>
           )}
@@ -61,7 +61,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
             exit={{ height: 0 }}
             transition={{ duration: 0.2 }}
           >
-            <div className="p-6">{children}</div>
+            <div className="p-4">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
