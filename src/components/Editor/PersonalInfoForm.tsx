@@ -63,7 +63,7 @@ export const PersonalInfoForm: React.FC = () => {
                 <PhotoIcon className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
               </div>
             </div>
-            <p className="text-sm text-gray-500">Tap to change photo</p>
+            <p className="text-sm text-gray-500">Click to Change Photo</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -71,7 +71,7 @@ export const PersonalInfoForm: React.FC = () => {
               <PhotoIcon className="h-12 w-12 text-gray-400" />
             </div>
             <div>
-              <p className="text-base text-gray-600">Add a profile photo</p>
+              <p className="text-base text-gray-600">Add a Profile Photo</p>
               <p className="text-sm text-gray-500 mt-1">PNG, JPG up to 10MB</p>
             </div>
           </div>
@@ -82,7 +82,7 @@ export const PersonalInfoForm: React.FC = () => {
       <CollapsibleSection title="Basic Information" icon={IdentificationIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
-            label={t('firstName')}
+            label="First Name"
             value={personalInfo.firstName}
             onChange={(value) => updatePersonalInfo({ firstName: value })}
             placeholder="John"
@@ -90,7 +90,7 @@ export const PersonalInfoForm: React.FC = () => {
           />
 
           <FormField
-            label={t('lastName')}
+            label="Last Name"
             value={personalInfo.lastName}
             onChange={(value) => updatePersonalInfo({ lastName: value })}
             placeholder="Doe"
@@ -98,7 +98,7 @@ export const PersonalInfoForm: React.FC = () => {
           />
 
           <FormField
-            label={t('title')}
+            label="Professional Title"
             value={personalInfo.title}
             onChange={(value) => updatePersonalInfo({ title: value })}
             placeholder="Software Engineer"
@@ -112,7 +112,7 @@ export const PersonalInfoForm: React.FC = () => {
       <CollapsibleSection title="Contact Information" icon={PhoneIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
-            label={t('email')}
+            label="Email Address"
             value={personalInfo.email}
             onChange={(value) => updatePersonalInfo({ email: value })}
             type="email"
@@ -121,7 +121,7 @@ export const PersonalInfoForm: React.FC = () => {
           />
 
           <FormField
-            label={t('phone')}
+            label="Phone Number"
             value={personalInfo.phone}
             onChange={(value) => updatePersonalInfo({ phone: value })}
             type="tel"
@@ -131,7 +131,7 @@ export const PersonalInfoForm: React.FC = () => {
           />
 
           <FormField
-            label={t('location')}
+            label="Location"
             value={personalInfo.location}
             onChange={(value) => updatePersonalInfo({ location: value })}
             placeholder="City, Country"
@@ -144,7 +144,7 @@ export const PersonalInfoForm: React.FC = () => {
       {/* Professional Summary */}
       <CollapsibleSection title="Professional Summary" icon={ChatBubbleBottomCenterTextIcon}>
         <FormField
-          label={t('summary')}
+          label="Summary"
           value={personalInfo.summary}
           onChange={(value) => updatePersonalInfo({ summary: value })}
           multiline
@@ -159,9 +159,9 @@ export const PersonalInfoForm: React.FC = () => {
       <div className="fixed bottom-20 inset-x-0 p-4 bg-white border-t border-gray-200 md:hidden">
         <button
           type="button"
-          className="w-full px-4 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
         >
-          Save & Continue
+          SAVE & CONTINUE
         </button>
       </div>
     </div>

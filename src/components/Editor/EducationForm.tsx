@@ -1,6 +1,13 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCVStore } from '../../store/cvStore';
+import { FormField } from './FormField';
+import {
+  AcademicCapIcon,
+  BookOpenIcon,
+  CalendarIcon,
+  DocumentTextIcon,
+} from '@heroicons/react/24/outline';
 
 export const EducationForm: React.FC = () => {
   const { t } = useTranslation();
@@ -23,94 +30,86 @@ export const EducationForm: React.FC = () => {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 pb-24 md:pb-0">
       {education.map((edu) => (
-        <div key={edu.id} className="space-y-4 p-4 border border-gray-200 rounded-lg">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {t('institution')}
-              </label>
-              <input
-                type="text"
-                value={edu.institution}
-                onChange={(e) => updateEducation(edu.id, { institution: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+        <div key={edu.id} className="space-y-6 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
+          <div className="grid grid-cols-1 gap-6">
+            <FormField
+              label="Institution"
+              value={edu.institution}
+              onChange={(value) => updateEducation(edu.id, { institution: value })}
+              placeholder="University or School Name"
+              icon={AcademicCapIcon}
+              hint="Enter the name of your educational institution"
+            />
+
+            <FormField
+              label="Degree"
+              value={edu.degree}
+              onChange={(value) => updateEducation(edu.id, { degree: value })}
+              placeholder="Bachelor's, Master's, etc."
+              icon={BookOpenIcon}
+              hint="Type of degree or certification"
+            />
+
+            <FormField
+              label="Field of Study"
+              value={edu.field}
+              onChange={(value) => updateEducation(edu.id, { field: value })}
+              placeholder="Major or Concentration"
+              icon={BookOpenIcon}
+              hint="Your area of specialization"
+            />
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <FormField
+                label="Start Date"
+                value={edu.startDate}
+                onChange={(value) => updateEducation(edu.id, { startDate: value })}
+                type="month"
+                icon={CalendarIcon}
+                hint="When did you start?"
+              />
+
+              <FormField
+                label="End Date"
+                value={edu.endDate}
+                onChange={(value) => updateEducation(edu.id, { endDate: value })}
+                type="month"
+                icon={CalendarIcon}
+                hint="When did you graduate?"
               />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {t('degree')}
-              </label>
-              <input
-                type="text"
-                value={edu.degree}
-                onChange={(e) => updateEducation(edu.id, { degree: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {t('field')}
-              </label>
-              <input
-                type="text"
-                value={edu.field}
-                onChange={(e) => updateEducation(edu.id, { field: e.target.value })}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-              />
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  {t('startDate')}
-                </label>
-                <input
-                  type="month"
-                  value={edu.startDate}
-                  onChange={(e) => updateEducation(edu.id, { startDate: e.target.value })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  {t('endDate')}
-                </label>
-                <input
-                  type="month"
-                  value={edu.endDate}
-                  onChange={(e) => updateEducation(edu.id, { endDate: e.target.value })}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-            </div>
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              {t('description')}
-            </label>
-            <textarea
+
+            <FormField
+              label="Description"
               value={edu.description}
-              onChange={(e) => updateEducation(edu.id, { description: e.target.value })}
-              rows={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              onChange={(value) => updateEducation(edu.id, { description: value })}
+              multiline
+              rows={4}
+              placeholder="Describe your academic achievements and activities"
+              icon={DocumentTextIcon}
+              hint="Include relevant coursework, honors, or extracurricular activities"
             />
           </div>
+
           <button
             onClick={() => removeEducation(edu.id)}
-            className="text-red-600 hover:text-red-800"
+            className="w-full px-4 py-3 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors text-base font-medium"
           >
-            {t('remove')}
+            REMOVE EDUCATION
           </button>
         </div>
       ))}
 
-      <button
-        onClick={handleAddEducation}
-        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-      >
-        {t('addEducation')}
-      </button>
+      <div className="fixed bottom-20 inset-x-0 p-4 bg-white border-t border-gray-200 md:relative md:bottom-0 md:inset-x-0 md:p-0 md:bg-transparent md:border-0">
+        <button
+          onClick={handleAddEducation}
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
+        >
+          ADD EDUCATION
+        </button>
+      </div>
     </div>
   );
 };

@@ -45,12 +45,6 @@ function App() {
       case 'skills':
         if (!data.skills?.length) return t('noSkills');
         return data.skills.map(skill => skill.name).join(' • ');
-      case 'languages':
-        if (!data.languages?.length) return t('noLanguages');
-        return data.languages.map(lang => lang.name).join(' • ');
-      case 'projects':
-        if (!data.projects?.length) return t('noProjects');
-        return data.projects.map(proj => proj.name).join(' • ');
       case 'customFields':
         if (!data.customFields?.length) return t('noCustomFields');
         return data.customFields.map(field => field.label).join(' • ');
@@ -117,14 +111,16 @@ function App() {
         />
 
         {/* Main Content */}
-        <div className="flex-1">
-          <div className="h-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="flex-1 max-w-[1200px]">
+          <div className="h-full mx-auto px-4">
             <MainContent showPreview={showPreview}>
-              <SectionTitle 
-                title={sections[currentStepIndex].title} 
-                icon={sections[currentStepIndex].icon}
-              />
-              <CurrentStepComponent />
+              <div className="max-w-2xl mx-auto">
+                <SectionTitle 
+                  title={sections[currentStepIndex].title} 
+                  icon={sections[currentStepIndex].icon}
+                />
+                <CurrentStepComponent />
+              </div>
             </MainContent>
           </div>
         </div>

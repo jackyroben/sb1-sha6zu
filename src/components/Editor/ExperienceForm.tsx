@@ -79,7 +79,7 @@ export const ExperienceForm: React.FC = () => {
                     onChange={(e) => updateWorkExperience(exp.id, { current: e.target.checked })}
                     className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-5 w-5"
                   />
-                  <span className="text-base text-gray-700">{t('current')}</span>
+                  <span className="text-base text-gray-700">Current Position</span>
                 </label>
               </div>
             </div>
@@ -98,9 +98,9 @@ export const ExperienceForm: React.FC = () => {
 
           <button
             onClick={() => removeWorkExperience(exp.id)}
-            className="mt-4 px-4 py-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-md transition-colors text-base flex items-center justify-center w-full"
+            className="w-full px-4 py-3 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors text-base font-medium"
           >
-            {t('remove')}
+            REMOVE EXPERIENCE
           </button>
         </div>
       ))}
@@ -108,9 +108,9 @@ export const ExperienceForm: React.FC = () => {
       <div className="fixed bottom-20 inset-x-0 p-4 bg-white border-t border-gray-200 md:relative md:bottom-0 md:inset-x-0 md:p-0 md:bg-transparent md:border-0">
         <button
           onClick={handleAddExperience}
-          className="w-full px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
+          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
         >
-          {t('addExperience')}
+          ADD EXPERIENCE
         </button>
       </div>
     </div>

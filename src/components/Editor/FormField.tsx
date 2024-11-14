@@ -26,12 +26,13 @@ export const FormField: React.FC<FormFieldProps> = ({
   rows = 4,
   disabled = false,
 }) => {
-  const inputClasses = "mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-base";
+  const baseClasses = "w-full rounded-md border-gray-300 shadow-sm transition-colors focus:border-blue-500 focus:ring-blue-500 text-base";
+  const inputClasses = `${baseClasses} ${Icon ? 'pl-10' : ''}`;
   const iconClasses = "h-5 w-5 text-gray-400";
 
   return (
-    <div className="space-y-2">
-      <label className="block text-base font-medium text-gray-800">
+    <div className="space-y-1.5">
+      <label className="block text-sm font-medium text-gray-700">
         {label}
       </label>
       <div className="relative">
@@ -47,7 +48,7 @@ export const FormField: React.FC<FormFieldProps> = ({
             rows={rows}
             placeholder={placeholder}
             disabled={disabled}
-            className={`${inputClasses} ${Icon ? 'pl-10' : ''}`}
+            className={inputClasses}
           />
         ) : (
           <input
@@ -56,12 +57,12 @@ export const FormField: React.FC<FormFieldProps> = ({
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             disabled={disabled}
-            className={`${inputClasses} ${Icon ? 'pl-10' : ''}`}
+            className={inputClasses}
           />
         )}
       </div>
       {hint && (
-        <p className="mt-1 text-sm text-gray-500">{hint}</p>
+        <p className="text-xs text-gray-500">{hint}</p>
       )}
     </div>
   );

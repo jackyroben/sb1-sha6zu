@@ -8,11 +8,11 @@ interface MainContentProps {
 
 export const MainContent: React.FC<MainContentProps> = ({ showPreview, children }) => {
   return (
-    <div className="h-full flex flex-col md:flex-row gap-6 py-6">
+    <div className="h-full flex flex-col md:flex-row gap-4 py-4">
       {/* Form */}
       <div className={`flex-1 ${showPreview ? 'md:w-1/2' : 'w-full'}`}>
-        <div className="bg-white shadow rounded-lg">
-          <div className="p-6">
+        <div className="bg-white shadow-sm rounded-lg">
+          <div className="p-4">
             {children}
           </div>
         </div>
@@ -21,7 +21,7 @@ export const MainContent: React.FC<MainContentProps> = ({ showPreview, children 
       {/* Preview */}
       {showPreview && (
         <div className={`flex-1 md:w-1/2`}>
-          <div className="bg-white shadow rounded-lg overflow-hidden">
+          <div className="bg-white shadow-sm rounded-lg overflow-hidden">
             <CVPreview />
           </div>
         </div>
