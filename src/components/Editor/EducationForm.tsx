@@ -35,61 +35,61 @@ export const EducationForm: React.FC = () => {
         <div key={edu.id} className="space-y-6 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="grid grid-cols-1 gap-6">
             <FormField
-              label="Institution"
+              label={t('institution')}
               value={edu.institution}
               onChange={(value) => updateEducation(edu.id, { institution: value })}
-              placeholder="University or School Name"
+              placeholder={t('institution')}
               icon={AcademicCapIcon}
-              hint="Enter the name of your educational institution"
+              hint={t('institutionHint')}
             />
 
             <FormField
-              label="Degree"
+              label={t('degree')}
               value={edu.degree}
               onChange={(value) => updateEducation(edu.id, { degree: value })}
-              placeholder="Bachelor's, Master's, etc."
+              placeholder={t('degree')}
               icon={BookOpenIcon}
-              hint="Type of degree or certification"
+              hint={t('degreeHint')}
             />
 
             <FormField
-              label="Field of Study"
+              label={t('field')}
               value={edu.field}
               onChange={(value) => updateEducation(edu.id, { field: value })}
-              placeholder="Major or Concentration"
+              placeholder={t('field')}
               icon={BookOpenIcon}
-              hint="Your area of specialization"
+              hint={t('fieldHint')}
             />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <FormField
-                label="Start Date"
+                label={t('startDate')}
                 value={edu.startDate}
                 onChange={(value) => updateEducation(edu.id, { startDate: value })}
                 type="month"
                 icon={CalendarIcon}
-                hint="When did you start?"
+                hint={t('startDateHint')}
               />
 
               <FormField
-                label="End Date"
+                label={t('endDate')}
                 value={edu.endDate}
                 onChange={(value) => updateEducation(edu.id, { endDate: value })}
                 type="month"
                 icon={CalendarIcon}
-                hint="When did you graduate?"
+                hint={t('endDateHint')}
               />
             </div>
 
             <FormField
-              label="Description"
+              label={t('description')}
               value={edu.description}
               onChange={(value) => updateEducation(edu.id, { description: value })}
               multiline
               rows={4}
-              placeholder="Describe your academic achievements and activities"
+              placeholder={t('educationDescriptionPlaceholder')}
               icon={DocumentTextIcon}
-              hint="Include relevant coursework, honors, or extracurricular activities"
+              hint={t('educationDescriptionHint')}
             />
           </div>
 
@@ -97,7 +97,7 @@ export const EducationForm: React.FC = () => {
             onClick={() => removeEducation(edu.id)}
             className="w-full px-4 py-3 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors text-base font-medium"
           >
-            REMOVE EDUCATION
+            {t('removeEducation').toUpperCase()}
           </button>
         </div>
       ))}
@@ -107,7 +107,7 @@ export const EducationForm: React.FC = () => {
           onClick={handleAddEducation}
           className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
         >
-          ADD EDUCATION
+          {t('addEducation').toUpperCase()}
         </button>
       </div>
     </div>

@@ -56,14 +56,14 @@ export const PersonalInfoForm: React.FC = () => {
             <div className="relative inline-block">
               <img
                 src={personalInfo.photo}
-                alt="Profile"
+                alt={t('profilePhoto')}
                 className="h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
               />
               <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity flex items-center justify-center">
                 <PhotoIcon className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
               </div>
             </div>
-            <p className="text-sm text-gray-500">Click to Change Photo</p>
+            <p className="text-sm text-gray-500">{t('clickToChangePhoto')}</p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -71,87 +71,87 @@ export const PersonalInfoForm: React.FC = () => {
               <PhotoIcon className="h-12 w-12 text-gray-400" />
             </div>
             <div>
-              <p className="text-base text-gray-600">Add a Profile Photo</p>
-              <p className="text-sm text-gray-500 mt-1">PNG, JPG up to 10MB</p>
+              <p className="text-base text-gray-600">{t('addProfilePhoto')}</p>
+              <p className="text-sm text-gray-500 mt-1">{t('photoRequirements')}</p>
             </div>
           </div>
         )}
       </div>
 
       {/* Basic Information */}
-      <CollapsibleSection title="Basic Information" icon={IdentificationIcon}>
+      <CollapsibleSection title={t('basicInformation')} icon={IdentificationIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
-            label="First Name"
+            label={t('firstName')}
             value={personalInfo.firstName}
             onChange={(value) => updatePersonalInfo({ firstName: value })}
-            placeholder="John"
+            placeholder={t('firstNamePlaceholder')}
             icon={UserIcon}
           />
 
           <FormField
-            label="Last Name"
+            label={t('lastName')}
             value={personalInfo.lastName}
             onChange={(value) => updatePersonalInfo({ lastName: value })}
-            placeholder="Doe"
+            placeholder={t('lastNamePlaceholder')}
             icon={UserIcon}
           />
 
           <FormField
-            label="Professional Title"
+            label={t('title')}
             value={personalInfo.title}
             onChange={(value) => updatePersonalInfo({ title: value })}
-            placeholder="Software Engineer"
+            placeholder={t('titlePlaceholder')}
             icon={BriefcaseIcon}
-            hint="Your current job title or professional role"
+            hint={t('titleHint')}
           />
         </div>
       </CollapsibleSection>
 
       {/* Contact Information */}
-      <CollapsibleSection title="Contact Information" icon={PhoneIcon}>
+      <CollapsibleSection title={t('contactInformation')} icon={PhoneIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           <FormField
-            label="Email Address"
+            label={t('email')}
             value={personalInfo.email}
             onChange={(value) => updatePersonalInfo({ email: value })}
             type="email"
-            placeholder="john.doe@example.com"
+            placeholder={t('emailPlaceholder')}
             icon={EnvelopeIcon}
           />
 
           <FormField
-            label="Phone Number"
+            label={t('phone')}
             value={personalInfo.phone}
             onChange={(value) => updatePersonalInfo({ phone: value })}
             type="tel"
-            placeholder="+1 (555) 123-4567"
+            placeholder={t('phonePlaceholder')}
             icon={PhoneIcon}
-            hint="Include country code for international format"
+            hint={t('phoneHint')}
           />
 
           <FormField
-            label="Location"
+            label={t('location')}
             value={personalInfo.location}
             onChange={(value) => updatePersonalInfo({ location: value })}
-            placeholder="City, Country"
+            placeholder={t('locationPlaceholder')}
             icon={MapPinIcon}
-            hint="City and country where you're based"
+            hint={t('locationHint')}
           />
         </div>
       </CollapsibleSection>
 
       {/* Professional Summary */}
-      <CollapsibleSection title="Professional Summary" icon={ChatBubbleBottomCenterTextIcon}>
+      <CollapsibleSection title={t('professionalSummary')} icon={ChatBubbleBottomCenterTextIcon}>
         <FormField
-          label="Summary"
+          label={t('summary')}
           value={personalInfo.summary}
           onChange={(value) => updatePersonalInfo({ summary: value })}
           multiline
           rows={4}
-          placeholder="Brief professional summary highlighting your key strengths and experience"
+          placeholder={t('summaryPlaceholder')}
           icon={DocumentTextIcon}
-          hint="Write a compelling summary of your professional background (recommended: 2-4 sentences)"
+          hint={t('summaryHint')}
         />
       </CollapsibleSection>
 
@@ -161,7 +161,7 @@ export const PersonalInfoForm: React.FC = () => {
           type="button"
           className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
         >
-          SAVE & CONTINUE
+          {t('saveAndContinue').toUpperCase()}
         </button>
       </div>
     </div>
