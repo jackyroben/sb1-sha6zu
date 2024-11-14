@@ -6,10 +6,10 @@ const resources = {
     translation: {
       // General
       cvBuilder: 'CV Builder',
-      save: 'Save',
-      cancel: 'Cancel',
-      remove: 'Remove',
-      add: 'Add',
+      save: 'SAVE',
+      cancel: 'CANCEL',
+      remove: 'REMOVE',
+      add: 'ADD',
       
       // Personal Info
       personalInfo: 'Personal Information',
@@ -20,6 +20,32 @@ const resources = {
       location: 'Location',
       title: 'Professional Title',
       summary: 'Professional Summary',
+      
+      // Photo Upload
+      addProfilePhoto: 'Add Profile Photo',
+      clickToChangePhoto: 'Click to Change Photo',
+      photoRequirements: 'Upload a professional photo (JPG or PNG, max 10MB)',
+      tapToUploadPhoto: 'Tap to Upload Photo',
+      
+      // Form Sections
+      basicInformation: 'Basic Information',
+      contactInformation: 'Contact Information',
+      professionalSummary: 'Professional Summary',
+      
+      // Placeholders
+      firstNamePlaceholder: 'Enter your first name',
+      lastNamePlaceholder: 'Enter your last name',
+      titlePlaceholder: 'e.g., Senior Software Engineer',
+      emailPlaceholder: 'your.email@example.com',
+      phonePlaceholder: '+1 (555) 123-4567',
+      locationPlaceholder: 'City, Country',
+      summaryPlaceholder: 'Write a brief overview of your professional background...',
+      
+      // Hints
+      titleHint: 'Your current job title or professional role',
+      phoneHint: 'Include country code and area code',
+      locationHint: 'Your current city and country',
+      summaryHint: 'Highlight your key qualifications and career objectives (2-4 sentences)',
       
       // Skills
       skills: 'Skills',
@@ -32,19 +58,19 @@ const resources = {
       skillLevel3: 'Intermediate',
       skillLevel4: 'Advanced',
       skillLevel5: 'Expert',
-      addSkill: 'Add Skill',
-      removeSkill: 'Remove Skill',
+      addSkill: 'ADD SKILL',
+      removeSkill: 'REMOVE SKILL',
       
       // Custom Fields
       customFields: 'Custom Fields',
       fieldLabel: 'Field Label',
       fieldValue: 'Field Value',
-      enterFieldName: 'Enter field name',
-      enterFieldValue: 'Enter field value',
+      enterFieldName: 'Enter field name (e.g., LinkedIn Profile)',
+      enterFieldValue: 'Enter the value',
       fieldLabelHint: 'Name of your custom field',
       fieldValueHint: 'Content of your custom field',
-      addCustomField: 'Add Custom Field',
-      removeField: 'Remove Field',
+      addCustomField: 'ADD CUSTOM FIELD',
+      removeField: 'REMOVE FIELD',
       
       // Education
       education: 'Education',
@@ -54,16 +80,40 @@ const resources = {
       startDate: 'Start Date',
       endDate: 'End Date',
       description: 'Description',
-      addEducation: 'Add Education',
-      removeEducation: 'Remove Education',
+      addEducation: 'ADD EDUCATION',
+      removeEducation: 'REMOVE EDUCATION',
+      
+      // Education Placeholders
+      institutionPlaceholder: 'Enter school or university name',
+      degreePlaceholder: 'e.g., Bachelor of Science',
+      fieldPlaceholder: 'e.g., Computer Science',
+      educationDescriptionPlaceholder: 'Describe your academic achievements...',
+      
+      // Education Hints
+      institutionHint: 'Name of the school or university',
+      degreeHint: 'Type of degree or certification',
+      fieldHint: 'Your major or area of study',
+      startDateHint: 'When did you start your studies?',
+      endDateHint: 'When did you graduate?',
+      educationDescriptionHint: 'Include relevant coursework, honors, or activities',
       
       // Experience
       experience: 'Experience',
       company: 'Company',
       position: 'Position',
       current: 'Current Position',
-      addExperience: 'Add Experience',
-      removeExperience: 'Remove Experience',
+      addExperience: 'ADD EXPERIENCE',
+      removeExperience: 'REMOVE EXPERIENCE',
+      
+      // Experience Placeholders
+      companyPlaceholder: 'Enter company name',
+      positionPlaceholder: 'Enter your job title',
+      experienceDescriptionPlaceholder: 'Describe your responsibilities and achievements...',
+      
+      // Experience Hints
+      companyHint: 'Name of the organization',
+      positionHint: 'Your role at the company',
+      experienceDescriptionHint: 'Use bullet points to highlight key accomplishments',
       
       // Templates
       chooseTemplate: 'Choose Template',
@@ -77,12 +127,13 @@ const resources = {
       bold: 'Bold',
       
       // Preview
-      showPreview: 'Show Preview',
-      hidePreview: 'Hide Preview',
-      downloadPDF: 'Download PDF',
+      showPreview: 'SHOW PREVIEW',
+      hidePreview: 'HIDE PREVIEW',
+      downloadPDF: 'DOWNLOAD PDF',
       
       // Section Management
       arrangeSections: 'Arrange Sections',
+      saveAndContinue: 'SAVE & CONTINUE',
       
       // Section summaries
       noPersonalInfo: 'No personal information added',
