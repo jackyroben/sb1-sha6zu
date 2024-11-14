@@ -8,7 +8,6 @@ interface CollapsibleSectionProps {
   children: React.ReactNode;
   defaultOpen?: boolean;
   className?: string;
-  sectionId?: string;
   itemCount?: number;
   summary?: string;
 }
@@ -19,8 +18,7 @@ export const CollapsibleSection: React.FC<CollapsibleSectionProps> = ({
   children,
   defaultOpen = true,
   className = '',
-  sectionId,
-  itemCount,
+  itemCount = 0,
   summary,
 }) => {
   const [isOpen, setIsOpen] = React.useState(defaultOpen);

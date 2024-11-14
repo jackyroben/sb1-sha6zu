@@ -138,7 +138,6 @@ function App() {
               key={sections[currentStepIndex].id}
               title={sections[currentStepIndex].title} 
               icon={sections[currentStepIndex].icon}
-              sectionId={sections[currentStepIndex].id}
               itemCount={sections[currentStepIndex].itemCount}
               summary={sections[currentStepIndex].summary}
             >
