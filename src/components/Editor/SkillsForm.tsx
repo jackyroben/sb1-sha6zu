@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useCVStore } from '../../store/cvStore';
 import { FormField } from './FormField';
-import { WrenchScrewdriverIcon, StarIcon } from '@heroicons/react/24/outline';
+import { WrenchScrewdriverIcon } from '@heroicons/react/24/outline';
 
 export const SkillsForm: React.FC = () => {
   const { t } = useTranslation();
@@ -23,17 +23,17 @@ export const SkillsForm: React.FC = () => {
         <div key={skill.id} className="space-y-6 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="grid grid-cols-1 gap-6">
             <FormField
-              label="Skill Name"
+              label={t('skillName')}
               value={skill.name}
               onChange={(value) => updateSkill(skill.id, { name: value })}
-              placeholder="Enter a skill"
+              placeholder={t('enterSkill')}
               icon={WrenchScrewdriverIcon}
-              hint="Programming language, tool, or soft skill"
+              hint={t('skillHint')}
             />
 
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
-                Proficiency Level
+                {t('proficiencyLevel')}
               </label>
               <select
                 value={skill.level}
@@ -42,7 +42,7 @@ export const SkillsForm: React.FC = () => {
               >
                 {[1, 2, 3, 4, 5].map((level) => (
                   <option key={level} value={level}>
-                    {level} - {level === 1 ? 'Beginner' : level === 2 ? 'Elementary' : level === 3 ? 'Intermediate' : level === 4 ? 'Advanced' : 'Expert'}
+                    {level} - {t(`skillLevel${level}`)}
                   </option>
                 ))}
               </select>
@@ -53,7 +53,7 @@ export const SkillsForm: React.FC = () => {
             onClick={() => removeSkill(skill.id)}
             className="w-full px-4 py-3 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors text-base font-medium"
           >
-            REMOVE SKILL
+            {t('removeSkill').toUpperCase()}
           </button>
         </div>
       ))}
@@ -63,7 +63,7 @@ export const SkillsForm: React.FC = () => {
           onClick={handleAddSkill}
           className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
         >
-          ADD SKILL
+          {t('addSkill').toUpperCase()}
         </button>
       </div>
     </div>

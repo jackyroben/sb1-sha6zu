@@ -23,21 +23,21 @@ export const CustomFieldsForm: React.FC = () => {
         <div key={field.id} className="space-y-6 p-6 bg-white rounded-lg shadow-sm border border-gray-200">
           <div className="grid grid-cols-1 gap-6">
             <FormField
-              label="Field Label"
+              label={t('fieldLabel')}
               value={field.label}
               onChange={(value) => updateCustomField(field.id, { label: value })}
-              placeholder="Enter field name"
+              placeholder={t('enterFieldName')}
               icon={TagIcon}
-              hint="Name of your custom field"
+              hint={t('fieldLabelHint')}
             />
 
             <FormField
-              label="Field Value"
+              label={t('fieldValue')}
               value={field.value}
               onChange={(value) => updateCustomField(field.id, { value: value })}
-              placeholder="Enter field value"
+              placeholder={t('enterFieldValue')}
               icon={DocumentTextIcon}
-              hint="Content of your custom field"
+              hint={t('fieldValueHint')}
             />
           </div>
 
@@ -45,7 +45,7 @@ export const CustomFieldsForm: React.FC = () => {
             onClick={() => removeCustomField(field.id)}
             className="w-full px-4 py-3 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors text-base font-medium"
           >
-            REMOVE FIELD
+            {t('removeField').toUpperCase()}
           </button>
         </div>
       ))}
@@ -55,7 +55,7 @@ export const CustomFieldsForm: React.FC = () => {
           onClick={handleAddField}
           className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg md:shadow-none"
         >
-          ADD CUSTOM FIELD
+          {t('addCustomField').toUpperCase()}
         </button>
       </div>
     </div>
