@@ -140,7 +140,6 @@ function App() {
               icon={sections[currentStepIndex].icon}
               sectionId={sections[currentStepIndex].id}
               itemCount={sections[currentStepIndex].itemCount}
-              isVisible={true}
               summary={sections[currentStepIndex].summary}
             >
               <CurrentStepComponent />
