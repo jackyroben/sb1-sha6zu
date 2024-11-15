@@ -4,6 +4,7 @@ import { useDropzone } from 'react-dropzone';
 import { useCVStore } from '../../store/cvStore';
 import { FormField } from './FormField';
 import { CollapsibleSection } from '../Layout/CollapsibleSection';
+import { ImageCropModal } from './ImageCropModal';
 import {
   UserIcon,
   EnvelopeIcon,
@@ -23,18 +24,22 @@ export const PersonalInfoForm: React.FC = () => {
     updatePersonalInfo: state.updatePersonalInfo,
   }));
 
+  const [cropModalOpen, setCropModalOpen] = React.useState(false);
+  const [selectedImage, setSelectedImage] = React.useState<string>('');
+
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          updatePersonalInfo({ photo: reader.result as string });
+          setSelectedImage(reader.result as string);
+          setCropModalOpen(true);
         };
         reader.readAsDataURL(file);
       }
     },
-    [updatePersonalInfo]
+    []
   );
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -42,6 +47,10 @@ export const PersonalInfoForm: React.FC = () => {
     accept: { 'image/*': [] },
     maxFiles: 1,
   });
+
+  const handleCropComplete = (croppedImage: string) => {
+    updatePersonalInfo({ photo: croppedImage });
+  };
 
   return (
     <div className="space-y-6 pb-24 md:pb-0">
@@ -78,6 +87,15 @@ export const PersonalInfoForm: React.FC = () => {
         )}
       </div>
 
+      {/* Image Crop Modal */}
+      <ImageCropModal
+        isOpen={cropModalOpen}
+        onClose={() => setCropModalOpen(false)}
+        imageUrl={selectedImage}
+        onCropComplete={handleCropComplete}
+      />
+
+      {/* Rest of the form remains the same */}
       {/* Basic Information */}
       <CollapsibleSection title={t('basicInformation')} icon={IdentificationIcon}>
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
