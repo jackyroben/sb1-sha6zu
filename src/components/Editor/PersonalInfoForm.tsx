@@ -2,19 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { useCVStore } from '../../store/cvStore';
-import { FormField } from './FormField';
-import { CollapsibleSection } from '../Layout/CollapsibleSection';
-import { ImageCropModal } from './ImageCropModal';
 import {
-  UserIcon,
   EnvelopeIcon,
   PhoneIcon,
   MapPinIcon,
+  UserCircleIcon,
   BriefcaseIcon,
-  DocumentTextIcon,
-  PhotoIcon,
-  IdentificationIcon,
-  ChatBubbleBottomCenterTextIcon,
+  DocumentTextIcon
 } from '@heroicons/react/24/outline';
 
 export const PersonalInfoForm: React.FC = () => {
@@ -24,22 +18,18 @@ export const PersonalInfoForm: React.FC = () => {
     updatePersonalInfo: state.updatePersonalInfo,
   }));
 
-  const [cropModalOpen, setCropModalOpen] = React.useState(false);
-  const [selectedImage, setSelectedImage] = React.useState<string>('');
-
   const onDrop = React.useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setSelectedImage(reader.result as string);
-          setCropModalOpen(true);
+          updatePersonalInfo({ photo: reader.result as string });
         };
         reader.readAsDataURL(file);
       }
     },
-    []
+    [updatePersonalInfo]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -48,139 +38,150 @@ export const PersonalInfoForm: React.FC = () => {
     maxFiles: 1,
   });
 
-  const handleCropComplete = (croppedImage: string) => {
-    updatePersonalInfo({ photo: croppedImage });
-  };
+  const InputWithIcon = ({ 
+    icon: Icon, 
+    label, 
+    value, 
+    onChange, 
+    type = 'text',
+    placeholder 
+  }: {
+    icon: React.ComponentType<{ className?: string }>;
+    label: string;
+    value: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    type?: string;
+    placeholder?: string;
+  }) => (
+    <div className="space-y-2">
+      <label className="block text-base font-semibold text-gray-900 uppercase tracking-wide text-sm">
+        {label}
+      </label>
+      <div className="relative">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+          <Icon className="h-5 w-5 text-gray-400" />
+        </div>
+        <input
+          type={type}
+          value={value}
+          onChange={onChange}
+          placeholder={placeholder}
+          className="block w-full pl-10 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base"
+        />
+      </div>
+    </div>
+  );
 
   return (
-    <div className="space-y-6 pb-24 md:pb-0">
+    <div className="space-y-8">
       {/* Photo Upload */}
-      <div
-        {...getRootProps()}
-        className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center cursor-pointer hover:border-blue-500 transition-colors"
-      >
-        <input {...getInputProps()} />
-        {personalInfo.photo ? (
-          <div className="space-y-4">
-            <div className="relative inline-block">
+      <div className="space-y-2">
+        <label className="block text-base font-semibold text-gray-900 uppercase tracking-wide text-sm">
+          {t('photo')}
+        </label>
+        <div
+          {...getRootProps()}
+          className="relative mt-2 flex flex-col justify-center items-center rounded-lg border-2 border-dashed border-gray-300 p-6 hover:border-indigo-500 transition-colors cursor-pointer"
+        >
+          <input {...getInputProps()} />
+          {personalInfo.photo ? (
+            <div className="text-center">
               <img
                 src={personalInfo.photo}
-                alt={t('profilePhoto')}
-                className="h-32 w-32 rounded-full object-cover ring-4 ring-white shadow-lg"
+                alt="Profile"
+                className="mx-auto h-32 w-32 rounded-full object-cover border-4 border-white shadow-lg"
               />
-              <div className="absolute inset-0 rounded-full bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity flex items-center justify-center">
-                <PhotoIcon className="h-8 w-8 text-white opacity-0 hover:opacity-100 transition-opacity" />
-              </div>
+              <p className="mt-4 text-sm text-gray-500">{t('tapToChange')}</p>
             </div>
-            <p className="text-sm text-gray-500">{t('clickToChangePhoto')}</p>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            <div className="h-32 w-32 mx-auto rounded-full bg-gray-50 border-2 border-dashed border-gray-200 flex items-center justify-center">
-              <PhotoIcon className="h-12 w-12 text-gray-400" />
+          ) : (
+            <div className="text-center">
+              <UserCircleIcon className="mx-auto h-16 w-16 text-gray-400" />
+              <p className="mt-4 text-base font-medium text-gray-900">{t('addPhoto')}</p>
+              <p className="mt-2 text-sm text-gray-500">{t('dragOrTap')}</p>
             </div>
-            <div>
-              <p className="text-base text-gray-600">{t('addProfilePhoto')}</p>
-              <p className="text-sm text-gray-500 mt-1">{t('photoRequirements')}</p>
-            </div>
-          </div>
-        )}
+          )}
+        </div>
       </div>
 
-      {/* Image Crop Modal */}
-      <ImageCropModal
-        isOpen={cropModalOpen}
-        onClose={() => setCropModalOpen(false)}
-        imageUrl={selectedImage}
-        onCropComplete={handleCropComplete}
-      />
-
-      {/* Rest of the form remains the same */}
       {/* Basic Information */}
-      <CollapsibleSection title={t('basicInformation')} icon={IdentificationIcon}>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <FormField
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">
+          {t('basicInformation')}
+        </h3>
+        <div className="grid grid-cols-1 gap-6">
+          <InputWithIcon
+            icon={UserCircleIcon}
             label={t('firstName')}
             value={personalInfo.firstName}
-            onChange={(value) => updatePersonalInfo({ firstName: value })}
-            placeholder={t('firstNamePlaceholder')}
-            icon={UserIcon}
+            onChange={(e) => updatePersonalInfo({ firstName: e.target.value })}
+            placeholder={t('enterFirstName')}
           />
-
-          <FormField
+          <InputWithIcon
+            icon={UserCircleIcon}
             label={t('lastName')}
             value={personalInfo.lastName}
-            onChange={(value) => updatePersonalInfo({ lastName: value })}
-            placeholder={t('lastNamePlaceholder')}
-            icon={UserIcon}
+            onChange={(e) => updatePersonalInfo({ lastName: e.target.value })}
+            placeholder={t('enterLastName')}
           />
-
-          <FormField
+          <InputWithIcon
+            icon={BriefcaseIcon}
             label={t('title')}
             value={personalInfo.title}
-            onChange={(value) => updatePersonalInfo({ title: value })}
-            placeholder={t('titlePlaceholder')}
-            icon={BriefcaseIcon}
-            hint={t('titleHint')}
+            onChange={(e) => updatePersonalInfo({ title: e.target.value })}
+            placeholder={t('enterTitle')}
           />
         </div>
-      </CollapsibleSection>
+      </div>
 
       {/* Contact Information */}
-      <CollapsibleSection title={t('contactInformation')} icon={PhoneIcon}>
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-          <FormField
+      <div className="space-y-6">
+        <h3 className="text-lg font-semibold text-gray-900 uppercase tracking-wide">
+          {t('contactInformation')}
+        </h3>
+        <div className="grid grid-cols-1 gap-6">
+          <InputWithIcon
+            icon={EnvelopeIcon}
             label={t('email')}
             value={personalInfo.email}
-            onChange={(value) => updatePersonalInfo({ email: value })}
+            onChange={(e) => updatePersonalInfo({ email: e.target.value })}
             type="email"
-            placeholder={t('emailPlaceholder')}
-            icon={EnvelopeIcon}
+            placeholder={t('enterEmail')}
           />
-
-          <FormField
+          <InputWithIcon
+            icon={PhoneIcon}
             label={t('phone')}
             value={personalInfo.phone}
-            onChange={(value) => updatePersonalInfo({ phone: value })}
+            onChange={(e) => updatePersonalInfo({ phone: e.target.value })}
             type="tel"
-            placeholder={t('phonePlaceholder')}
-            icon={PhoneIcon}
-            hint={t('phoneHint')}
+            placeholder={t('enterPhone')}
           />
-
-          <FormField
+          <InputWithIcon
+            icon={MapPinIcon}
             label={t('location')}
             value={personalInfo.location}
-            onChange={(value) => updatePersonalInfo({ location: value })}
-            placeholder={t('locationPlaceholder')}
-            icon={MapPinIcon}
-            hint={t('locationHint')}
+            onChange={(e) => updatePersonalInfo({ location: e.target.value })}
+            placeholder={t('enterLocation')}
           />
         </div>
-      </CollapsibleSection>
+      </div>
 
-      {/* Professional Summary */}
-      <CollapsibleSection title={t('professionalSummary')} icon={ChatBubbleBottomCenterTextIcon}>
-        <FormField
-          label={t('summary')}
-          value={personalInfo.summary}
-          onChange={(value) => updatePersonalInfo({ summary: value })}
-          multiline
-          rows={4}
-          placeholder={t('summaryPlaceholder')}
-          icon={DocumentTextIcon}
-          hint={t('summaryHint')}
-        />
-      </CollapsibleSection>
-
-      {/* Save Button */}
-      <div className="fixed bottom-20 inset-x-0 p-4 bg-white border-t border-gray-200 md:hidden">
-        <button
-          type="button"
-          className="w-full px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-base font-medium shadow-lg"
-        >
-          {t('saveAndContinue').toUpperCase()}
-        </button>
+      {/* Summary */}
+      <div className="space-y-2">
+        <label className="block text-base font-semibold text-gray-900 uppercase tracking-wide text-sm">
+          {t('summary')}
+        </label>
+        <div className="relative">
+          <div className="absolute top-3 left-3 pointer-events-none">
+            <DocumentTextIcon className="h-5 w-5 text-gray-400" />
+          </div>
+          <textarea
+            value={personalInfo.summary}
+            onChange={(e) => updatePersonalInfo({ summary: e.target.value })}
+            rows={4}
+            className="block w-full pl-10 rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-base"
+            placeholder={t('enterSummary')}
+          />
+        </div>
       </div>
     </div>
   );
